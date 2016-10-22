@@ -31,8 +31,8 @@ class UsersController < ApplicationController
     @user = current_user
     ride = Ride.new(ride_params[:attraction_attributes])
     ride.user = current_user
-    ride.save
     if ride.take_ride
+      ride.save
       current_user.rides << ride
       current_user.update(
         :tickets => (current_user.tickets - ride.tickets.to_i),
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def ride_params
-    params.require(:user).permit(:attraction_attributes => [:tickets, :happiness_rating, :name, :nausea_rating, :min_height])
+    params.require(:user).permit(:attraction_attributes => [:tickets, :happiness_rating, :name, :nausea_rating, :min_height, :attraction_id])
   end
 
 end

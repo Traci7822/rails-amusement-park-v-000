@@ -24,11 +24,11 @@ class Ride < ActiveRecord::Base
   end
 
   def enough_tickets
-    @user.tickets > self.tickets
+    @user.tickets > self.attraction.tickets
   end
 
   def tall_enough
-      @user.height > self.min_height
+      @user.height > self.attraction.min_height
   end
 
 

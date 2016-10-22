@@ -4,6 +4,7 @@
   <%= f.hidden_field "attraction_attributes[attraction_name]", :value => @attraction.name %>
   <%= f.hidden_field "attraction_attributes[nausea_rating]", :value => @attraction.nausea_rating %>
   <%= f.hidden_field "attraction_attributes[min_height]", :value => @attraction.min_height %>
+  <%= f.hidden_field "attraction_attributes[attraction_id]", :value => @attraction.id %>
   <%= f.submit 'Go on this ride' %>
   <!-- <% flash[:notice] = "Thanks for riding the #{@attraction.name}!" %> -->
 <% end %>
