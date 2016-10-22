@@ -1,12 +1,10 @@
-class Ride < ActiveRecord::Base
-  belongs_to :attraction
-  belongs_to :user
-
-
+module RidesHelper
   def take_ride
-    @user = self.user
-    if @user && @user.tickets && @user.height
+    binding.pry
+    @user = user
+    if @user.tickets && @user.height
       if meet_requirements
+        #go_on_ride
       elsif tall_enough && !enough_tickets
         "Sorry. You do not have enough tickets the #{attraction.name}."
       elsif enough_tickets && !tall_enough
@@ -20,16 +18,14 @@ class Ride < ActiveRecord::Base
   private
 
   def meet_requirements
-    enough_tickets && tall_enough
+      enough_tickets && tall_enough
   end
 
   def enough_tickets
-    @user.tickets > self.tickets
+      @user.tickets > self.tickets
   end
 
   def tall_enough
       @user.height > self.min_height
   end
-
-
 end

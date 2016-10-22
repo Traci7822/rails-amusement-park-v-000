@@ -23,13 +23,19 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-           <%= link_to "Sign up", new_user_path %>
-           <%= link_to "Sign in", signin_path %>
+            <% if !session[:user_id] %>
+              <!-- <h4><%= link_to "Sign up", new_user_path %></h4><br /> -->
+              <!-- <h4><%= link_to "Sign in", signin_path %></h4> -->
+            <% else %>
+              <h4><%= link_to "Hello", user_path(session[:user_id]) %></h4>
+              <h4><%= link_to "Attractions", attractions_path %></h4>
+              <!-- <h4><%= link_to "Log Out", logout_path %></h4> -->
+            <% end %>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-
     <!-- content -->
     <div class="container"  role="main">
       <%= yield %>

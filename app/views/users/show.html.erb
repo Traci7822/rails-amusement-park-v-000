@@ -1,3 +1,6 @@
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
 <% if @user.admin %>
   <%= @admin_status %>
 <% end %>
@@ -6,3 +9,6 @@
 <h3>Tickets: <%= @user.tickets %></h3>
 <h3>Nausea: <%= @user.nausea %></h3>
 <h3>Height: <%= @user.height %></h3>
+
+<%= link_to "See attractions", attractions_path %>
+<%= link_to "Log Out",  '/logout', method: :delete %>
