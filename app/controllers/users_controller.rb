@@ -27,10 +27,11 @@ class UsersController < ApplicationController
   def update
     ride = Ride.new(ride_params[:attraction_attributes])
     ride.user = current_user
-    if ride.take_ride
+    messages = ride.take_ride
+    if messages.include?("Thanks for riding the #{ride.attraction.name}!")
       ride.save
     end
-    redirect_to user_path(current_user), :alert => ride.take_ride
+    redirect_to user_path(current_user), :alert => messages
   end
 
   private
