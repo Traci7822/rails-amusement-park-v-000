@@ -4,15 +4,23 @@ class Ride < ActiveRecord::Base
 
 
   def take_ride
+    flash = {}
     @user = self.user
-      if meet_requirements
-      elsif tall_enough && !enough_tickets
-        "Sorry. You do not have enough tickets the #{attraction.name}."
-      elsif enough_tickets && !tall_enough
-        "Sorry. You are not tall enough to ride the #{attraction.name}."
-      else
-        "Sorry. You do not have enough tickets the #{attraction.name}. You are not tall enough to ride the #{attraction.name}."
-      end
+    if meet_requirements
+      @user.rides << self
+      @user.update(
+        :tickets => @user.tickets - self.attraction.tickets,
+        :nausea => @user.nausea + self.attraction.nausea_rating,
+        :happiness => @user.happiness + self.attraction.happiness_rating
+      )
+      flash[:notice] = "Thanks for riding the #{self.attraction.name}!"
+    elsif tall_enough && !enough_tickets
+      flash[:notice] = "Sorry. You do not have enough tickets to ride the #{self.attraction.name}."
+    elsif enough_tickets && !tall_enough
+      flash[:notice] = "Sorry. You are not tall enough to ride the #{self.attraction.name}."
+    else
+      flash[:notice] = "Sorry. You do not have enough tickets to ride the #{self.attraction.name}. You are not tall enough to ride the #{self.attraction.name}."
+    end
   end
 
   private

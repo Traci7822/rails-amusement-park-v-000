@@ -16,9 +16,6 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = current_user
-      if @user.admin
-        @admin_status = "ADMIN"
-      end
     else
       redirect_to root_path
     end
@@ -32,13 +29,8 @@ class UsersController < ApplicationController
     ride.user = current_user
     if ride.take_ride
       ride.save
-      current_user.rides << ride
-      current_user.update(
-        :tickets => current_user.tickets - ride.tickets,
-        :happiness => ride.happiness_rating
-      )
     end
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user), :alert => ride.take_ride
   end
 
   private

@@ -1,8 +1,8 @@
-<% if flash[:notice] %>
-  <%= flash[:notice] %>
+<% flash.each do |message| %>
+  <%= message[1] %>
 <% end %>
 <% if @user.admin %>
-  <%= @admin_status %>
+  <%= "ADMIN" %>
 <% end %>
 <h3>Name: <%= @user.name %></h3>
 <h3>Mood: <%= @user.mood %></h3>
