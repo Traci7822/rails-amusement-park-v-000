@@ -5,7 +5,6 @@ class Ride < ActiveRecord::Base
 
   def take_ride
     @user = self.user
-    if @user && @user.tickets && @user.height
       if meet_requirements
       elsif tall_enough && !enough_tickets
         "Sorry. You do not have enough tickets the #{attraction.name}."
@@ -14,7 +13,6 @@ class Ride < ActiveRecord::Base
       else
         "Sorry. You do not have enough tickets the #{attraction.name}. You are not tall enough to ride the #{attraction.name}."
       end
-    end
   end
 
   private
