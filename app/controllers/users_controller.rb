@@ -28,15 +28,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
     ride = Ride.new(ride_params[:attraction_attributes])
     ride.user = current_user
     if ride.take_ride
       ride.save
       current_user.rides << ride
       current_user.update(
-        :tickets => (current_user.tickets - ride.tickets.to_i),
-        :happiness => ride.happiness_rating.to_i
+        :tickets => current_user.tickets - ride.tickets,
+        :happiness => ride.happiness_rating
       )
     end
     redirect_to user_path(current_user)
